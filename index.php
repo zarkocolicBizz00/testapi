@@ -11,10 +11,17 @@
 
 
 </head>
+
+<?php
+
+include "obrada.php";
+
+?>
+
 <body>
     
     <h1>Inicijalna stranica</h1>
-
+    <!-- Ubacio sam post ovde kao method (IZBACI KASNIJE PA POKRENI ) -->
     <form action="">
         <div id="odabir tabele">
             <input type="radio" name = "odabir_tabele" id="radio_kategorija" value = "kategorija">
@@ -48,10 +55,16 @@
             
             <label for="kategorija_odabir">Kategorija:</label>
             <select name="kategorija_odabir" id="kategorija_odabir">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+                <?php
+                
+                    $mydb -> select("kategorije", "*", null, null, null);
+                    while($red = $mydb->getResult()->fetch_object()):
+                
+                ?>
+
+                <option value="<?php echo $red->id?>"><?php echo $red->kategorija?></option>
+                        <?php endwhile; ?>
+
             </select>
         </div>
 
@@ -88,16 +101,29 @@
             
             <label for="kategorija_odabir_put">Odaberite novu kategoriju:</label>
             <select name="kategorija_odabir_put" id="kategorija_odabir_put">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+                
+            <?php
+                
+                $mydb -> select("kategorije", "*", null, null, null);
+                while($red = $mydb->getResult()->fetch_object()):
+            
+            ?>
+
+            <option value="<?php echo $red->id?>"><?php echo $red->kategorija?></option>
+                    <?php endwhile; ?>
+
             </select>
         </div>
         
         <div id="greska">
 
         </div>
+        
+        <!-- novo submit dugme za posalji zahtev -->
+  
+        <!-- <div id="submit">
+            <input type = "submit" name="posalji" id = "posalji" value = "Posalji zahtev">
+        </div>  -->
 
         <div id="submit">
             <button type="button">Posalji zahtev</button>
